@@ -1,10 +1,7 @@
 package org.example.homework3;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class WordFrequencyCounter {
 
@@ -12,8 +9,11 @@ public class WordFrequencyCounter {
         String fileName = "words.txt";
         Map<String, Integer> wordFrequency = countWordFrequency(fileName);
 
+        List<Map.Entry<String, Integer>> entryList = new ArrayList<>(wordFrequency.entrySet());
 
-        for (Map.Entry<String, Integer> entry : wordFrequency.entrySet()) {
+        entryList.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+
+        for (Map.Entry<String, Integer> entry : entryList) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
     }
@@ -30,9 +30,7 @@ public class WordFrequencyCounter {
                 String[] words = line.split("\\s+");
 
                 for (String word : words) {
-
                     word = word.replaceAll("[^a-zA-Z]", "").toLowerCase();
-
                     if (!word.isEmpty()) {
                         wordFrequency.put(word, wordFrequency.getOrDefault(word, 0) + 1);
                     }
