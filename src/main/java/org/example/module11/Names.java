@@ -1,20 +1,14 @@
 package org.example.module11;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Names {
     public static String oddIndexedNames(List<String> names) {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < names.size(); i++) {
-            if (i % 2 == 0) {
-                result.append((i + 1) + ". " + names.get(i));
-                result.append(", ");
-            }
-        }
-
-        if (result.length() > 0) {
-            result.delete(result.length() - 2, result.length());
-        }
-        return result.toString();
+        return IntStream.range(0, names.size())
+                .filter(i -> i % 2 == 0)
+                .mapToObj(names::get)
+                .collect(Collectors.joining(", "));
     }
 
     public static void main(String[] args) {
@@ -23,4 +17,6 @@ public class Names {
         System.out.println(result);
     }
 }
+
+
 

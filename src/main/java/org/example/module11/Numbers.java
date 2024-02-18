@@ -1,5 +1,6 @@
 package org.example.module11;
-import java.util.*;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class Numbers {
     public static void main(String[] args) {
@@ -9,27 +10,12 @@ public class Numbers {
     }
 
     public static String sortAndJoinNumbers(String[] arr) {
-        ArrayList<Integer> numbers = new ArrayList<>();
-
-        for (String str : arr) {
-            String[] nums = str.split(",\\s*");
-
-            for (String num : nums) {
-                int n = Integer.parseInt(num);
-                numbers.add(n);
-            }
-        }
-        Collections.sort(numbers);
-
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < numbers.size(); i++) {
-            sb.append(numbers.get(i));
-            if (i < numbers.size() - 1) {
-                sb.append(", ");
-            }
-        }
-
-        return sb.toString();
+        return Arrays.stream(arr)
+                .flatMap(s -> Arrays.stream(s.split(",\\s*")))
+                .map(Integer::parseInt)
+                .sorted()
+                .map(Object::toString)
+                .collect(Collectors.joining(", "));
     }
 }
 
