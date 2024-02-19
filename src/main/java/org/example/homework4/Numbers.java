@@ -1,4 +1,4 @@
-package org.example.module11;
+package org.example.homework4;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
